@@ -1,107 +1,80 @@
 function Explorer(terrain) {
-  var terrain = terrain;
-  var grid = terrain.landscape;
-  var size = grid.length;
-  var x = size / 2;
-  var y = size / 2;
-  var options = { up: 0, right: 0, down: 0, left: 0};
-  var direction = null;
-  var finished = false;
+  this.terrain = terrain;
+  this.grid = terrain.grid;
+  this.size = this.grid.length;
+  this.x = this.size / 2;
+  this.y = this.size / 2;
+  this.options = { up: 0, right: 0, down: 0, left: 0 };
+  this.direction = null;
+  this.finished = false;
+}
 
-  var opposite = function(dir) {
-    var oppositeDir;
-    switch(dir) {
-      case "up":
-        oppositeDir = "down"; break;
-      case "down":
-        oppositeDir = "up"; break;
-      case "left":
-        oppositeDir = "right"; break;
-      case "right":
-        oppositeDir = "left"; break;
+Explorer.prototype.chooseDirection = function() {
+  var highestAltitude = 0;
+  var newDir = 'stop';
+  for (var dir in this.options) {
+    var altitude = this.options[dir];
+    if (dir !== opposite(this.direction) && altitude > highestAltitude) {
+      highestAltitude = altitude;
+      newDir = dir;
     }
-    return oppositeDir;
   }
+  this.direction = newDir;
+};
 
-  var chooseDirection = function() {
-    var highestAltitude = 0;
-    var newDir = "stop"
-    for (var dir in options) {
-      var altitude = options[dir];
-      if (dir !== opposite(direction) && altitude > highestAltitude) {
-        highestAltitude = altitude;
-        newDir = dir;
-      }
-    }
-    direction = newDir;
-  };
+Explorer.prototype.move = function() {
+  this.grid[this.y][this.x].nibble();
+  this.terrain.decrementCounter();
+  switch(this.direction) {
+    case 'up':
+      this.y--; break;
+    case 'right':
+      this.x++; break;
+    case 'down':
+      this.y++; break;
+    case 'left':
+      this.x--; break;
+    default:
+      this.finished = true;
+  }
+};
 
-  var move = function(dir) {
-    grid[y][x] = 0;
+Explorer.prototype.blockedAt = function(dir) {
+  var blocked = false;
+  switch(dir) {
+    case 'up':
+      blocked = this.y === 0; break;
+    case 'right':
+      blocked = this.x === this.size - 1; break;
+    case 'down':
+      blocked = this.y === this.size - 1; break;
+    case 'left':
+      blocked = this.x === 0; break;
+  }
+  return blocked;
+};
+
+Explorer.prototype.look = function(dir) {
+  var altitude;
+  if (this.blockedAt(dir)) {
+    altitude = 0;
+  } else {
     switch(dir) {
-      case "up":
-        y--; break;
-      case "right":
-        x++; break;
-      case "down":
-        y++; break;
-      case "left":
-        x--; break;
-      default:
-        finished = true;
+      case 'up':
+        altitude = this.grid[this.y-1][this.x].foodCount(); break;
+      case 'right':
+        altitude = this.grid[this.y][this.x+1].foodCount(); break;
+      case 'down':
+        altitude = this.grid[this.y+1][this.x].foodCount(); break;
+      case 'left':
+        altitude = this.grid[this.y][this.x-1].foodCount(); break;
     }
-  };
+  }
+  this.options[dir] = altitude;
+};
 
-  var blockedAt = function(dir) {
-    var blocked = false;
-    switch(dir) {
-      case "up":
-        blocked = y === 0; break;
-      case "right":
-        blocked = x === size - 1; break;
-      case "down":
-        blocked = y === size - 1; break;
-      case "left":
-        blocked = x === 0; break;
-    }
-    return blocked;
-  };
-
-  var look = function(dir) {
-    if (blockedAt(dir)) {
-      altitude = 0;
-    } else {
-      switch(dir) {
-        case "up":
-          altitude = grid[y-1][x]; break;
-        case "right":
-          altitude = grid[y][x+1]; break;
-        case "down":
-          altitude = grid[y+1][x]; break;
-        case "left":
-          altitude = grid[y][x-1]; break;
-      }
-    }
-    options[dir] = altitude;
-  };
-
-  var lookAround = function() {
-    for (var dir in options) {
-      look(dir);
-    }
-  };
-
-  var explore = setInterval(function() {
-    resetIfDone();
-    lookAround();
-    chooseDirection();
-    move(direction);
-    terrain.printLandscape();
-  }, 10);
-
-  var resetIfDone = function() {
-    if (finished) {
-      clearInterval(explore);
-    }
-  };
+Explorer.prototype.lookAround = function() {
+  for (var dir in this.options) {
+    this.look(dir);
+  }
 };

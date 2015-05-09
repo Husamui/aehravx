@@ -1,15 +1,19 @@
 html, body {
+	position: fixed;
 	height: 100%;
 	width: 100%;
-	position: relative;
-	font-family: 'Lato';
-	color: white;
 }
 
 body {
+	color: white;
+	font-family: 'Lato';
 	text-align: center;
-	margin: 20px auto;
+	margin: 40px auto;
 	background: #272F32;
+}
+
+.important {
+	color: #FF3D2E;
 }
 
 div.row {
@@ -31,4 +35,8 @@ div.dot {
 	position: relative;
 	top: 50%;
 	transform: translateY(-50%);
+}
+
+div.empty {
+	background: #FF3D2E;
 }

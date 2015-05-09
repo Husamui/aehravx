@@ -6,18 +6,17 @@ function Dot (diameter) {
 }
 
 Dot.prototype.nibble = function () {
-  var newDiameter = this.$element.width() - 1;
   this.$element.css({
-    width : newDiameter,
-    height : newDiameter
+    width: 0,
+    height: 0
   });
-  if (this.isEmpty) {
-    this.$element.css({
-      backgroundColor : "#FF3D2E"
-    });
-  }
+  this.$element.parent().addClass('empty');
+};
+
+Dot.prototype.foodCount = function () {
+  return this.$element.width();
 };
 
 Dot.prototype.isEmpty = function () {
-  return this.$element.width() <= 0;
+  return this.foodCount() <= 0;
 };
