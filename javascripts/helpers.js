@@ -9,3 +9,18 @@ function generateRandMatrix(size) {
   }
   return matrix;
 }
+
+function opposite (dir) {
+  var oppositeDir;
+  switch(dir) {
+    case "up":
+      oppositeDir = "down"; break;
+    case "down":
+      oppositeDir = "up"; break;
+    case "left":
+      oppositeDir = "right"; break;
+    case "right":
+      oppositeDir = "left"; break;
+  }
+  return oppositeDir;
+}
