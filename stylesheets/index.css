@@ -12,24 +12,20 @@ body {
 	background: #272F32;
 }
 
-.important {
-	color: #FF3D2E;
-}
-
-div.row {
+.row {
 	margin: 0;
 	padding: 0;
 	margin-bottom: 3px;
 }
 
-div.cell {
+.cell {
 	display: inline-block;
 	background: #9DBDC6;
 	position: relative;
 	margin-right: 3px;
 }
 
-div.dot {
+.dot {
 	background: white;
 	margin: 0 auto;
 	position: relative;
@@ -37,6 +33,10 @@ div.dot {
 	transform: translateY(-50%);
 }
 
-div.empty {
+.empty {
 	background: #FF3D2E;
+}
+
+.important {
+	color: #FF3D2E;
 }
