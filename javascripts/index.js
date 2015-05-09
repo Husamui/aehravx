@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
 	var sawtoothMountains = new Terrain(30,12);
-	sawtoothMountains.printLandscape();
+	sawtoothMountains.renderLandscape();
 
 	// $(document).on('keyup', function (e) {
 	// 	if (e.keyCode === 13) {

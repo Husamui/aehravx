@@ -12,17 +12,13 @@ function Explorer(terrain) {
     var oppositeDir;
     switch(dir) {
       case "up":
-        oppositeDir = "down";
-        break;
+        oppositeDir = "down"; break;
       case "down":
-        oppositeDir = "up";
-        break;
+        oppositeDir = "up"; break;
       case "left":
-        oppositeDir = "right";
-        break;
+        oppositeDir = "right"; break;
       case "right":
-        oppositeDir = "left";
-        break;
+        oppositeDir = "left"; break;
     }
     return oppositeDir;
   }
@@ -44,17 +40,13 @@ function Explorer(terrain) {
     grid[y][x] = 0;
     switch(dir) {
       case "up":
-        y--;
-        break;
+        y--; break;
       case "right":
-        x++;
-        break;
+        x++; break;
       case "down":
-        y++;
-        break;
+        y++; break;
       case "left":
-        x--;
-        break;
+        x--; break;
       default:
         finished = true;
     }
@@ -64,17 +56,13 @@ function Explorer(terrain) {
     var blocked = false;
     switch(dir) {
       case "up":
-        blocked = y === 0;
-        break;
+        blocked = y === 0; break;
       case "right":
-        blocked = x === size - 1;
-        break;
+        blocked = x === size - 1; break;
       case "down":
-        blocked = y === size - 1;
-        break;
+        blocked = y === size - 1; break;
       case "left":
-        blocked = x === 0;
-        break;
+        blocked = x === 0; break;
     }
     return blocked;
   };
@@ -85,17 +73,13 @@ function Explorer(terrain) {
     } else {
       switch(dir) {
         case "up":
-          altitude = grid[y-1][x];
-          break;
+          altitude = grid[y-1][x]; break;
         case "right":
-          altitude = grid[y][x+1];
-          break;
+          altitude = grid[y][x+1]; break;
         case "down":
-          altitude = grid[y+1][x];
-          break;
+          altitude = grid[y+1][x]; break;
         case "left":
-          altitude = grid[y][x-1];
-          break;
+          altitude = grid[y][x-1]; break;
       }
     }
     options[dir] = altitude;
