@@ -3,7 +3,6 @@ html, body {
 	height: 100%;
 	width: 100%;
 }
-
 body {
 	color: white;
 	font-family: 'Lato';
@@ -11,20 +10,17 @@ body {
 	margin: 40px auto;
 	background: #272F32;
 }
-
 .row {
 	margin: 0;
 	padding: 0;
 	margin-bottom: 3px;
 }
-
 .cell {
 	display: inline-block;
 	background: #9DBDC6;
 	position: relative;
 	margin-right: 3px;
 }
-
 .dot {
 	background: white;
 	margin: 0 auto;
@@ -32,11 +28,23 @@ body {
 	top: 50%;
 	transform: translateY(-50%);
 }
-
 .empty {
 	background: #FF3D2E;
 }
-
 .important {
 	color: #FF3D2E;
+}
+a {
+	position: fixed;
+	bottom: 10px;
+	text-decoration: none;
+	color: white;
+	font-size: 12px;
+	border-bottom: 1px solid white;
+	left: 50%;
+	transform: translateX(-50%);
+	transition: 0.5s;
+}
+a:hover {
+	border-bottom-color: rgba(0,0,0,0);
 }
